@@ -6,12 +6,17 @@ import { useEffect, useRef, useState } from "react";
 import {
    FaBlog,
    FaBriefcase,
-   FaEnvelope,
+   FaFacebook,
+   FaGithub,
    FaHome,
+   FaLinkedin,
    FaServicestack,
    FaTags,
-   FaUser
+   FaTwitter,
+   FaUser,
+   FaYoutube
 } from "react-icons/fa";
+import { SiMaildotcom } from "react-icons/si";
 
 export default function HorizontalTraveling() {
    const [isOpen, setIsOpen] = useState(false);
@@ -19,13 +24,21 @@ export default function HorizontalTraveling() {
    const drawerRef = useRef(null);
    const toggleButtonRef = useRef(null);
 
-   const links = [
+   const horizontalLinks = [
       { label: "HOME", href: "/", symbol: <FaHome /> },
       { label: "ABOUT ME", href: "/about-me", symbol: <FaUser /> },
       { label: "WORKS", href: "/works", symbol: <FaBriefcase /> },
       { label: "SERVICES", href: "/services", symbol: <FaServicestack /> },
       { label: "PRICING", href: "/pricing", symbol: <FaTags /> },
       { label: "BLOG", href: "/blog", symbol: <FaBlog /> }
+   ];
+
+   const outgoingLinks = [
+      { href: "https://facebook.com", logos: <FaFacebook /> },
+      { href: "https://youtube.com", logos: <FaYoutube /> },
+      { href: "https://twitter.com", logos: <FaTwitter /> },
+      { href: "https://linkedin.com", logos: <FaLinkedin /> },
+      { href: "https://github.com", logos: <FaGithub /> }
    ];
 
    // Close drawer when clicking outside
@@ -50,14 +63,14 @@ export default function HorizontalTraveling() {
    return (
       <>
          <header className="fixed top-0 left-0 z-30 w-full bg-white dark:bg-slate-900 shadow-lg border-b border-slate-200 dark:border-slate-800">
-            <nav className="flex items-center justify-between h-16 px-6 lg:px-8">
+            <nav className="flex items-center justify-between h-12 mx-auto max-w-7xl px-4">
                <Link href="/" className="text-xl font-semibold">
                   Minhaz E Siraz
                </Link>
 
                {/* lg - xl - 2xl */}
                <ul className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-700 dark:text-slate-300">
-                  {links.map(({ label, href, symbol }, i) => (
+                  {horizontalLinks.map(({ label, href, symbol }, i) => (
                      <li key={i}>
                         <Link
                            href={href}
@@ -73,9 +86,9 @@ export default function HorizontalTraveling() {
                   ))}
                   <Link
                      href="/contact-me"
-                     className="flex items-center gap-2 border border-emerald-500 text-emerald-500 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-400 dark:hover:text-slate-900 rounded px-4 py-2 transition-colors duration-300"
+                     className="flex items-center gap-2 border border-emerald-500 text-emerald-500 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-400 dark:hover:text-slate-900 rounded px-4 py-1 transition-colors duration-300"
                   >
-                     <FaEnvelope />
+                     <SiMaildotcom />
                      CONTACT ME
                   </Link>
                </ul>
@@ -110,15 +123,15 @@ export default function HorizontalTraveling() {
          </header>
 
          {/* sm - md (drawer) */}
-         <div
+         <aside
             ref={drawerRef}
-            className={`fixed top-0 left-0 z-20 h-full w-[60%] max-w-xs bg-white dark:bg-slate-900 shadow-lg transform transition-transform duration-300 ease-in-out ${
+            className={`fixed top-0 left-0 z-20 h-full w-2/3 max-w-xs bg-white dark:bg-slate-900 shadow-lg transform transition-transform duration-300 ease-in-out ${
                isOpen ? "translate-x-0" : "-translate-x-full"
             }`}
          >
-            <div className="px-6 py-4 mt-16">
+            <div className="px-6 py-6 flex flex-col gap-6 min-h-screen justify-between">
                <ul className="flex flex-col gap-4 text-sm font-medium">
-                  {links.map(({ label, href, symbol }, i) => (
+                  {horizontalLinks.map(({ label, href, symbol }, i) => (
                      <li key={i}>
                         <Link
                            href={href}
@@ -139,12 +152,33 @@ export default function HorizontalTraveling() {
                      onClick={() => setIsOpen(false)}
                      className="flex items-center gap-2 border border-emerald-500 text-emerald-500 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-400 dark:hover:text-slate-900 rounded px-4 py-2 transition-colors duration-300"
                   >
-                     <FaEnvelope />
+                     <SiMaildotcom />
                      CONTACT ME
                   </Link>
                </ul>
+
+               {/* Outgoing  */}
+               <div className="mt-8 text-center space-y-4">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 italic leading-snug">
+                     Success isn&lsquo;t a destination — it&lsquo;s a journey of
+                     growth, learning, and persistence.
+                  </p>
+                  <div className="flex items-center justify-center gap-4 text-xl text-slate-600 dark:text-slate-300 pt-4">
+                     {outgoingLinks.map(({ href, logos }, i) => (
+                        <a
+                           key={i}
+                           href={href}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="hover:text-emerald-500 dark:hover:text-emerald-400"
+                        >
+                           {logos}
+                        </a>
+                     ))}
+                  </div>
+               </div>
             </div>
-         </div>
+         </aside>
 
          {/* Backdrop (click outside to close) */}
          {isOpen && (
