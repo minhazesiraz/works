@@ -17,7 +17,7 @@ const pricing_plans = [
          "Ongoing performance monitoring"
       ],
       isPopular: false,
-      cta: "Hire Me"
+      cta: "Let's Talk"
    },
    {
       type: "Project-Based",

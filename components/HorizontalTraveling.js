@@ -8,7 +8,6 @@ import {
    FaBriefcase,
    FaFacebook,
    FaGithub,
-   FaHome,
    FaLinkedin,
    FaServicestack,
    FaTags,
@@ -25,20 +24,33 @@ export default function HorizontalTraveling() {
    const toggleButtonRef = useRef(null);
 
    const horizontalLinks = [
-      { label: "HOME", href: "/", symbol: <FaHome /> },
-      { label: "ABOUT ME", href: "/about-me", symbol: <FaUser /> },
-      { label: "WORKS", href: "/works", symbol: <FaBriefcase /> },
-      { label: "SERVICES", href: "/services", symbol: <FaServicestack /> },
-      { label: "PRICING", href: "/pricing", symbol: <FaTags /> },
-      { label: "BLOG", href: "/blog", symbol: <FaBlog /> }
+      { label: "About Me", href: "/about-me", symbol: <FaUser /> },
+      { label: "Works", href: "/works", symbol: <FaBriefcase /> },
+      {
+         label: "Services",
+         symbol: <FaServicestack />,
+         children: [
+            { label: "Website Building", href: "/services/Website-Building" },
+            {
+               label: "Dashboard with Power BI",
+               href: "/services/Dashboard-with-Power-BI"
+            },
+            { label: "Data Analysis", href: "/services/Data-Analysis" }
+         ]
+      },
+      { label: "Pricing", href: "/pricing", symbol: <FaTags /> },
+      { label: "Blog", href: "/blog", symbol: <FaBlog /> }
    ];
 
    const outgoingLinks = [
-      { href: "https://facebook.com", logos: <FaFacebook /> },
-      { href: "https://youtube.com", logos: <FaYoutube /> },
-      { href: "https://twitter.com", logos: <FaTwitter /> },
-      { href: "https://linkedin.com", logos: <FaLinkedin /> },
-      { href: "https://github.com", logos: <FaGithub /> }
+      { href: "https://www.facebook.com/minhazesiraz", logos: <FaFacebook /> },
+      { href: "https://www.youtube.com/@minhazesiraz", logos: <FaYoutube /> },
+      { href: "https://x.com/minhazesiraz", logos: <FaTwitter /> },
+      {
+         href: "https://www.linkedin.com/in/minhazesiraz",
+         logos: <FaLinkedin />
+      },
+      { href: "https://github.com/minhazesiraz", logos: <FaGithub /> }
    ];
 
    // Close drawer when clicking outside
@@ -70,7 +82,7 @@ export default function HorizontalTraveling() {
 
                {/* lg - xl - 2xl */}
                <ul className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-700 dark:text-slate-300">
-                  {horizontalLinks.map(({ label, href, symbol }, i) => (
+                  {/* {horizontalLinks.map(({ label, href, symbol }, i) => (
                      <li key={i}>
                         <Link
                            href={href}
@@ -83,13 +95,49 @@ export default function HorizontalTraveling() {
                            {label}
                         </Link>
                      </li>
-                  ))}
+                  ))} */}
+                  {horizontalLinks.map(
+                     ({ label, href, symbol, children }, i) => (
+                        <li key={i} className="relative group">
+                           {!children ? (
+                              <Link
+                                 href={href}
+                                 className={`flex items-center gap-1 ${
+                                    pathname === href
+                                       ? "text-emerald-500 dark:text-emerald-400"
+                                       : "hover:text-emerald-500 dark:hover:text-emerald-400"
+                                 }`}
+                              >
+                                 {label}
+                              </Link>
+                           ) : (
+                              <>
+                                 <button className="flex items-center gap-1 hover:text-emerald-500 dark:hover:text-emerald-400 cursor-pointer">
+                                    {label}
+                                 </button>
+                                 <ul className="absolute left-0 top-full w-48 bg-white dark:bg-slate-800 shadow-md rounded border border-slate-200 dark:border-slate-700 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
+                                    {children.map(({ href, label }, i) => (
+                                       <li key={i}>
+                                          <Link
+                                             href={href}
+                                             className="block px-4 py-2 text-sm hover:bg-emerald-50 dark:hover:bg-slate-700"
+                                          >
+                                             {label}
+                                          </Link>
+                                       </li>
+                                    ))}
+                                 </ul>
+                              </>
+                           )}
+                        </li>
+                     )
+                  )}
                   <Link
-                     href="/contact-me"
+                     href="/connect-with-me"
                      className="flex items-center gap-2 border border-emerald-500 text-emerald-500 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-400 dark:hover:text-slate-900 rounded px-4 py-1 transition-colors duration-300"
                   >
                      <SiMaildotcom />
-                     CONTACT ME
+                     Connect with Me
                   </Link>
                </ul>
 
@@ -131,7 +179,7 @@ export default function HorizontalTraveling() {
          >
             <div className="px-6 py-6 flex flex-col gap-6 min-h-screen justify-between">
                <ul className="flex flex-col gap-4 text-sm font-medium">
-                  {horizontalLinks.map(({ label, href, symbol }, i) => (
+                  {/* {horizontalLinks.map(({ label, href, symbol }, i) => (
                      <li key={i}>
                         <Link
                            href={href}
@@ -146,14 +194,55 @@ export default function HorizontalTraveling() {
                            {label}
                         </Link>
                      </li>
-                  ))}
+                  ))} */}
+                  {horizontalLinks.map(
+                     ({ label, href, symbol, children }, i) => (
+                        <li key={i}>
+                           {!children ? (
+                              <Link
+                                 href={href}
+                                 onClick={() => setIsOpen(false)}
+                                 className={`flex items-center gap-2 transition-colors ${
+                                    pathname === href
+                                       ? "text-emerald-500 dark:text-emerald-400"
+                                       : "text-slate-700 dark:text-slate-300"
+                                 } hover:text-emerald-500 dark:hover:text-emerald-400`}
+                              >
+                                 {symbol}
+                                 {label}
+                              </Link>
+                           ) : (
+                              <div className="space-y-1">
+                                 <div className="flex items-center gap-2 font-medium text-slate-700 dark:text-slate-300">
+                                    {symbol}
+                                    {label}
+                                 </div>
+                                 <ul className="ml-6 space-y-1 text-sm">
+                                    {children.map((item, idx) => (
+                                       <li key={idx}>
+                                          <Link
+                                             href={item.href}
+                                             onClick={() => setIsOpen(false)}
+                                             className="block hover:text-emerald-500 dark:hover:text-emerald-400"
+                                          >
+                                             {item.label}
+                                          </Link>
+                                       </li>
+                                    ))}
+                                 </ul>
+                              </div>
+                           )}
+                        </li>
+                     )
+                  )}
+
                   <Link
-                     href="/contact-me"
+                     href="/connect-with-me"
                      onClick={() => setIsOpen(false)}
                      className="flex items-center gap-2 border border-emerald-500 text-emerald-500 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-400 dark:hover:text-slate-900 rounded px-4 py-2 transition-colors duration-300"
                   >
                      <SiMaildotcom />
-                     CONTACT ME
+                     Connect with Me
                   </Link>
                </ul>
 
