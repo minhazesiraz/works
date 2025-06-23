@@ -28,14 +28,15 @@ export default function HorizontalTraveling() {
       { label: "Works", href: "/works", symbol: <FaBriefcase /> },
       {
          label: "Services",
+         href: "/services",
          symbol: <FaServicestack />,
          children: [
-            { label: "Website Building", href: "/services/Website-Building" },
+            { label: "Website Building", href: "/services#Website-Building" },
             {
                label: "Dashboard with Power BI",
-               href: "/services/Dashboard-with-Power-BI"
+               href: "/services#Dashboard-with-Power-BI"
             },
-            { label: "Data Analysis", href: "/services/Data-Analysis" }
+            { label: "Data Analysis", href: "/services#Data-Analysis" }
          ]
       },
       { label: "Pricing", href: "/pricing", symbol: <FaTags /> },
@@ -173,29 +174,32 @@ export default function HorizontalTraveling() {
          {/* sm - md (drawer) */}
          <aside
             ref={drawerRef}
-            className={`fixed top-0 left-0 z-20 h-full w-2/3 max-w-xs bg-white dark:bg-slate-900 shadow-lg transform transition-transform duration-300 ease-in-out ${
+            // className={`fixed top-0 left-0 z-20 h-full w-2/3 max-w-xs bg-white dark:bg-slate-900 shadow-lg transform transition-transform duration-300 ease-in-out ${
+            //    isOpen ? "translate-x-0" : "-translate-x-full"
+            // }`}
+            className={`fixed top-0 left-0 z-20 h-full w-4/5 max-w-xs bg-white dark:bg-slate-900 shadow-lg transform transition-transform duration-300 ease-in-out ${
                isOpen ? "translate-x-0" : "-translate-x-full"
             }`}
          >
-            <div className="px-6 py-6 flex flex-col gap-6 min-h-screen justify-between">
-               <ul className="flex flex-col gap-4 text-sm font-medium">
-                  {/* {horizontalLinks.map(({ label, href, symbol }, i) => (
+            <div className="py-3 pt-14 flex flex-col gap-6 min-h-screen justify-between">
+               <ul className="flex flex-col gap-2 px-3 text-sm font-medium">
+                  {horizontalLinks.map(({ label, href, symbol }, i) => (
                      <li key={i}>
                         <Link
                            href={href}
                            onClick={() => setIsOpen(false)}
-                           className={`flex items-center gap-2 transition-colors ${
+                           className={`flex items-center gap-2 px-3 py-2 rounded transition-colors duration-200 ${
                               pathname === href
-                                 ? "text-emerald-500 dark:text-emerald-400"
+                                 ? "text-emerald-500 bg-emerald-50 dark:text-emerald-400 dark:bg-slate-800"
                                  : "text-slate-700 dark:text-slate-300"
-                           } hover:text-emerald-500 dark:hover:text-emerald-400`}
+                           } hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-slate-800 dark:hover:text-emerald-400`}
                         >
                            {symbol}
                            {label}
                         </Link>
                      </li>
-                  ))} */}
-                  {horizontalLinks.map(
+                  ))}
+                  {/* {horizontalLinks.map(
                      ({ label, href, symbol, children }, i) => (
                         <li key={i}>
                            {!children ? (
@@ -234,12 +238,12 @@ export default function HorizontalTraveling() {
                            )}
                         </li>
                      )
-                  )}
+                  )} */}
 
                   <Link
                      href="/connect-with-me"
                      onClick={() => setIsOpen(false)}
-                     className="flex items-center gap-2 border border-emerald-500 text-emerald-500 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-400 dark:hover:text-slate-900 rounded px-4 py-2 transition-colors duration-300"
+                     className="flex items-center gap-2 border border-emerald-500 text-emerald-500 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-400 dark:hover:text-slate-900 rounded px-3 py-2 transition-colors duration-300"
                   >
                      <SiMaildotcom />
                      Connect with Me
@@ -247,12 +251,28 @@ export default function HorizontalTraveling() {
                </ul>
 
                {/* Outgoing  */}
-               <div className="mt-8 text-center space-y-4">
-                  <p className="text-xs text-slate-500 dark:text-slate-400 italic leading-snug">
+               <div className="mt-8 text-left space-y-3">
+                  {/* <p className="text-xs text-slate-500 dark:text-slate-400 italic leading-snug">
                      Success isn&lsquo;t a destination — it&lsquo;s a journey of
                      growth, learning, and persistence.
-                  </p>
-                  <div className="flex items-center justify-center gap-4 text-xl text-slate-600 dark:text-slate-300 pt-4">
+                  </p> */}
+                  <div className="px-3">
+                     <div
+                        className="w-full rounded border border-slate-600 bg-slate-800 px-4 py-3 text-sm text-slate-200"
+                        role="alert"
+                     >
+                        <p className="text-sky-400">
+                           Any fool can write code that a computer can
+                           understand. Good programmers write code that humans
+                           can understand.{" "}
+                        </p>
+                        <h3 className="mt-2 font-semibold text-end text-sky-400">
+                           — Martin Fowler
+                        </h3>
+                     </div>
+                  </div>
+                  <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700" />
+                  <div className="flex items-center justify-center gap-2 text-xl text-slate-600 dark:text-slate-300">
                      {outgoingLinks.map(({ href, logos }, i) => (
                         <a
                            key={i}
